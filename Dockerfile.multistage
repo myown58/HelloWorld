@@ -1,14 +1,26 @@
-# Dockerfile for Spring Boot Application
-# Build the JAR locally first with: mvn clean package
+# Multi-stage Dockerfile for CI/CD pipelines
+# This builds the application inside Docker
 
+FROM maven:3.9-eclipse-temurin-17 AS build
+WORKDIR /app
+
+# Copy pom.xml and download dependencies (cached layer)
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
+
+# Copy source code and build
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+# Stage 2: Create the runtime image
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 
 # Create a non-root user for security
 RUN addgroup -S spring && adduser -S spring -G spring
 
-# Copy the built JAR file
-COPY target/*.jar app.jar
+# Copy the built JAR from the build stage
+COPY --from=build /app/target/*.jar app.jar
 
 # Change ownership to spring user
 RUN chown spring:spring app.jar

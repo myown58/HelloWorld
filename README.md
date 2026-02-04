@@ -86,8 +86,19 @@ curl http://localhost:8080/actuator/health
 
 ### Building the Docker Image
 
+First, build the JAR file locally:
+```bash
+mvn clean package
+```
+
+Then build the Docker image:
 ```bash
 docker build -t helloworld:latest .
+```
+
+**Note**: The default `Dockerfile` expects the JAR to be built locally first. For CI/CD pipelines that need to build inside Docker, use:
+```bash
+docker build -f Dockerfile.multistage -t helloworld:latest .
 ```
 
 ### Running with Docker
