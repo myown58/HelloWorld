@@ -66,17 +66,14 @@ The application will start on `http://localhost:8080`
 ### Available Endpoints
 
 - `GET /api/hello` - Returns a hello world message
-- `GET /api/health` - Returns application health status
-- `GET /actuator/health` - Spring Boot actuator health endpoint
+- `GET /actuator/health` - Spring Boot actuator health endpoint (includes disk space, ping status)
+- `GET /actuator/info` - Spring Boot actuator info endpoint
 
 ### Testing the Endpoints
 
 ```bash
 # Test hello endpoint
 curl http://localhost:8080/api/hello
-
-# Test health endpoint
-curl http://localhost:8080/api/health
 
 # Test actuator health endpoint
 curl http://localhost:8080/actuator/health

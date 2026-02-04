@@ -18,12 +18,4 @@ public class HelloWorldController {
         response.put("status", "success");
         return response;
     }
-
-    @GetMapping("/health")
-    public Map<String, String> health() {
-        Map<String, String> response = new HashMap<>();
-        response.put("status", "UP");
-        response.put("application", "HelloWorld");
-        return response;
-    }
 }

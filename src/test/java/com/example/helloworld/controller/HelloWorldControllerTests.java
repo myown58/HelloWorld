@@ -21,12 +21,4 @@ class HelloWorldControllerTests {
                 .andExpect(jsonPath("$.message").value("Hello World!"))
                 .andExpect(jsonPath("$.status").value("success"));
     }
-
-    @Test
-    void testHealthEndpoint() throws Exception {
-        mockMvc.perform(get("/api/health"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.status").value("UP"))
-                .andExpect(jsonPath("$.application").value("HelloWorld"));
-    }
 }
